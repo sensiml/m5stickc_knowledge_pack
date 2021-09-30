@@ -1,0 +1,35 @@
+#ifndef __SENSOR_CONFIG_H__
+#define __SENSOR_CONFIG_H__
+#include <ArduinoJson.h>
+
+#define ENABLE_AUDIO 0
+
+#define ENABLE_ACCEL 1
+#define ENABLE_GYRO 1
+
+#define USE_SAWTOOTH_PATTERN 0
+
+#if ENABLE_ACCEL || ENABLE_GYRO
+#define SENSOR_SAMPLE_RATE 200
+#else
+#define SENSOR_SAMPLE_RATE 16000
+#endif
+
+
+#if ENABLE_ACCEL && ENABLE_GYRO
+#define SAMPLES_PER_PACKET 10
+#define AXIS_COUNT 6
+#elif ENABLE_ACCEL != ENABLE_GYRO
+#define SAMPLES_PER_PACKET 10
+#define AXIS_COUNT 3
+#elif ENABLE_AUDIO
+#define SAMPLES_PER_PACKET 512
+#define AXIS_COUNT 1
+#endif
+#define PACKET_SIZE        SAMPLES_PER_PACKET * AXIS_COUNT
+
+
+
+const int WRITE_BUFFER_SIZE = 512;
+
+#endif //__SENSOR_CONFIG_H__
